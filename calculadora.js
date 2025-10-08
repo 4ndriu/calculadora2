@@ -2,17 +2,22 @@ import { useState } from "react";
 import Button from "./Button";
 
 const Contador = () => {
-  const [contador, setContador] = useState(0);
+  const [contador, setContador] = useState("");
   const [operador, setOperador] = useState(null);
   const [numTemp, setNumTemp] = useState(""); 
 
   const ImputNumber = (num) => {
-    setNumTemp(numTemp + String(num));
+    setNumTemp(numTemp + num);
   };
 
   const ejecutarOperacion = () => {
     if (numTemp === "") return; 
     const numero = Number(numTemp);
+
+    if (operador === "/" && numero === 0) {
+        alert("No se puede dividir por cero");
+        return;
+    }
 
     if (operador === "+") {
       setContador(contador + numero);
@@ -46,6 +51,10 @@ const Contador = () => {
   };
 
   const Igual = () => {
+    if (numTemp === "") {
+        alert("Ingrese un numero");
+        return;
+    }
     ejecutarOperacion();
     setOperador(null);
   };
@@ -92,7 +101,7 @@ const Contador = () => {
       <Button onClick={() => ImputNumber(0)}>0</Button>
       <br />
 
-      <button onClick={Aumentar}>Aumentar</button>
+      <Button onClick={Aumentar}>Aumentar</Button>
       <button onClick={Disminuir}>Disminuir</button>
       <button onClick={Sumar}>+</button>
       <button onClick={Restar}>-</button>
@@ -104,4 +113,3 @@ const Contador = () => {
 };
 
 export default Contador;
-
