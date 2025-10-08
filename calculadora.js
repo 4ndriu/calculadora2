@@ -4,15 +4,14 @@ import Button from "./Button";
 const Contador = () => {
   const [contador, setContador] = useState(0);
   const [operador, setOperador] = useState(null);
-  const [numTemp, setNumTemp] = useState(""); // número que el usuario está escribiendo
+  const [numTemp, setNumTemp] = useState(""); 
 
   const ImputNumber = (num) => {
-    // concatenamos los números (por ejemplo 2 + 2 → "22")
     setNumTemp(numTemp + String(num));
   };
 
   const ejecutarOperacion = () => {
-    if (numTemp === "") return; // si no hay número escrito, no hace nada
+    if (numTemp === "") return; 
     const numero = Number(numTemp);
 
     if (operador === "+") {
@@ -21,12 +20,14 @@ const Contador = () => {
       setContador(contador - numero);
     } else if (operador === "*") {
       setContador(contador * numero);
+    }else if (operador === "/") {
+      setContador(contador / numero);
     } else {
-      // si no hay operador, es el primer número que escribe
+     
       setContador(numero);
     }
 
-    setNumTemp(""); // limpia el número temporal para el siguiente
+    setNumTemp("");
   };
 
   const Sumar = () => {
@@ -51,6 +52,11 @@ const Contador = () => {
 
   const Aumentar = () => {
     setContador(contador + 1);
+  };
+
+  const dividir = () => {
+    ejecutarOperacion();
+    setOperador("/");
   };
 
   const Disminuir = () => {
@@ -91,9 +97,11 @@ const Contador = () => {
       <button onClick={Sumar}>+</button>
       <button onClick={Restar}>-</button>
       <button onClick={Multiplicar}>X</button>
+      <button onClick={dividir}>/</button>
       <button onClick={Reset}>Reset</button>
     </div>
   );
 };
 
 export default Contador;
+
